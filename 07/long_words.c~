@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define WORD_LEN 80
+#define ARRAY_LEN 100
+
+void *emalloc(size_t s) {
+    void *result = malloc(s);
+    if (NULL == result) {
+        fprintf(stderr, "fail\n");
+        exit(EXIT_FAILURE);
+    }
+    return result;
+}
+
+void print_array(char **a, int n, double average) {
+    if(n > 0) {
+        if(strlen(a[0] > average)) {
+            printf("%s\n", a[0]);
+        }
+        print_array(a+1, n-1, average);
+        
+    }
+}
+
+int main(void) {
+    char word[STRING_LEN];
+    char *wordlist[ARRAY_LEN];
+    int num_words = 0;
+    double average = 0.0;
+    int i;
+
+    while (num_words < ARRAY_LEN && 1 == scanf("&79s", word)) {
+        wordlist[num_words] = emalloc((strlen(word)+1) * sizeof wordlist[0]);
+        strcopy(wordlist[num_words], word);
+        num_words++;
+        average += strlen(word);
+    }
+
+    if(count > 0) {
+        average /= count;
+        fprintf(stderr, "%.2f\n", average);
+        print_array(wordlist, num_words, average);
+    }
+    
+    for(i = 0; i < num_words; i++) {
+        free(wordlist[i]);
+    }
+
+    return EXIT_SUCCESS;
+}
+    
+
+    
