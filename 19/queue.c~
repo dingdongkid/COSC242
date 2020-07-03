@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stlib.h>
+#include "queue.h"
+
+struct queue {
+    double *items;
+    int head;
+    int capacity;
+    in num_items;
+};
+
+void *emalloc(size_t s) {
+    void *result = malloc(s);
+    if(NULL == result) {
+        fprintf(stderr, "Memory allocation failed!\n");
+        exit(EXIT_FAILURE);
+    }
+    return result;
+}
+
+queue queue_new() {
+    int i;
+    queue q = emalloc(sizeof *q);
+    q->capacity = 5;
+    q->head = 0;
+    q->num_items = 0;
+    q->items = emalloc(q->capacity * sizeof q->items[0]);
+    for(i = 0; i < q->capacity; i++) {
+        q->items[i] = NULL;
+    }
+    return q;
+}
+
+void enqueue(queue q, double item) {
+    if(q->num_items < q->capacity) {
+        int i = (q->head + q->num_items) % q->capacity;
+        q->items[i] = item;
+        num_items++;
+    }
+}
+
+double dequeue(queue q) {
+    double d;
+    if(q->num_items > 0) {
+        d = q->items[q->head];
+        q->head++;
+        if(q->head >= q->capacity) {
+            q->head = 0;
+        }
+        num_items++;
+    }
+    return d;
+}
+
+void queue_print(queue q) {
+    int i;
+    int j = q->head;
+    for(i = 0; i < q->num_items; i++) {
+        printf("%f/n", q->items[j++]);
+        if(j >= q->capacity) {
+            j = 0;
+        }
+    }
+}
+
+int queue_size(queue q) {
+    return q->num_items;
+}
+
+queue queue_free(queue q) {
+    int i;
+    for(i = 0; i < q->capacity; i++) {
+        free(q->items[i]);
+    }
+    free(q->items);
+    free(q);
+}

@@ -1,0 +1,4 @@
+#ifndef BST_NODE_H_
+#define BST_NODE_H_
+
+typedef struct bst_node *bst;

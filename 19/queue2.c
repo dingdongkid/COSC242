@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "queue.h"
+
+typedef struct q_item *q_item;
+
+struct q_item {
+    double item;
+    q_item next;
+};
+
+struct queue {
+    q_item first;
+    q_item last;
+    int length;
+};
+
+void *emalloc(size_t s) {
+    void *result = malloc(s);
+    if(NULL == result) {
+        fprintf(stderr, "Memory allocation failed!\n");
+        exit(EXIT_FAILURE);
+    }
+    return result;
+}
+
+queue queue_new() {
+    queue q = emalloc(sizeof *q);
+    q->first = NULL;
+    q->last = NULL;
+    q->length = 0;
+    return q;
+}
+
+void enqueue(queue q, double item) {
+    q_item qi = emalloc(sizeof *qi);
+    qi->item = item;
+    qi->next = NULL;
+    
+    if(q->last == NULL) {
+        q->first = qi;
+        q->last = qi;
+    } else {
+        q->last->next = qi;
+        q->last = qi;
+    }
+    q->length++;
+}
+
+double dequeue(queue q) {
+    double d;
+    q_item temp;
+
+    if(q->first != NULL) {
+        d = q->first->item;
+        temp = q->first->next;
+        free(q->first);
+        q->first = temp;
+        if(q->first == NULL) {
+            q->last = NULL;
+        }
+        q->length--;
+        return d;
+    } else {
+        fprintf(stderr, "no items to remove\n");
+        exit(EXIT_FAILURE);
+    }
+}
+
+void queue_print(queue q) {
+    int i;
+    q_item temp = q->first;
+    for(i = 0; i < q->length; i++) {
+        printf("%.2f\n", temp->item);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int queue_size(queue q) {
+    return q->length;
+}
+
+queue queue_free(queue q) {
+    int i;
+    q_item temp;
+    for(i = 0; i < q->length; i++) {
+        temp = q->first;
+        q->first = q->first->next;
+        free(temp);
+    }
+    free(q);
+    return q;
+}
