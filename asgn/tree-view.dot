@@ -1,0 +1,22 @@
+digraph tree {
+node [shape = Mrecord, penwidth = 2];
+"sociable"[label="{<f0>sociable:0|{<f1>|<f2>}}"color=black];
+"galleries"[label="{<f0>galleries:0|{<f1>|<f2>}}"color=black];
+"combed"[label="{<f0>combed:0|{<f1>|<f2>}}"color=black];
+"escorted"[label="{<f0>escorted:0|{<f1>|<f2>}}"color=black];
+"digressed"[label="{<f0>digressed:0|{<f1>|<f2>}}"color=black];
+"escorted":f1 -> "digressed":f0;
+"combed":f2 -> "escorted":f0;
+"galleries":f1 -> "combed":f0;
+"russia"[label="{<f0>russia:0|{<f1>|<f2>}}"color=black];
+"revocable"[label="{<f0>revocable:0|{<f1>|<f2>}}"color=black];
+"malawi"[label="{<f0>malawi:0|{<f1>|<f2>}}"color=black];
+"revocable":f1 -> "malawi":f0;
+"russia":f1 -> "revocable":f0;
+"screamer"[label="{<f0>screamer:0|{<f1>|<f2>}}"color=black];
+"russia":f2 -> "screamer":f0;
+"galleries":f2 -> "russia":f0;
+"sociable":f1 -> "galleries":f0;
+"thickness"[label="{<f0>thickness:0|{<f1>|<f2>}}"color=black];
+"sociable":f2 -> "thickness":f0;
+}

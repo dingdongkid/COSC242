@@ -1,0 +1,21 @@
+#ifndef TREE_NODE_H_
+#define TREE_NODE_H_
+/**
+ * Header class for tree.c.  
+ * @author Andrew Daw, Makoto McLennan, Nicholas Dong.
+ */
+#include <stdio.h>
+typedef struct tree_node *tree;
+typedef enum { RED, BLACK } tree_colour;
+typedef enum tree_e { BST, RBT } tree_t;
+
+extern tree set_black(tree t);
+extern tree tree_free(tree t);
+extern void tree_inorder(tree t, void f(char *str));
+extern tree tree_insert(tree t, char *str);
+extern tree tree_new(tree_t type);
+extern void tree_output_dot(tree t, FILE *out);
+extern void tree_preorder(tree t, void f(char *str));
+extern int  tree_search(tree t, char *str);
+
+#endif
